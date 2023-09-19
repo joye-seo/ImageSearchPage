@@ -2,4 +2,7 @@
     <string name="app_name">ImageSearchPage</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">카카오 이미지 검색</string>
+    <string name="search_off">검색결과가 없습니다</string>
+    <string name="search_on">돋보기 버튼을 눌러 이미지를 검색하세요</string>
 </resources>

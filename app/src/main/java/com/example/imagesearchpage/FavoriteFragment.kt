@@ -12,6 +12,9 @@ class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var searchAdapter: SearchAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,6 +30,10 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        searchAdapter = SearchAdapter(requireContext(),Data.favoriteList)
+        binding.rvFavorite.adapter = searchAdapter
+        binding.rvFavorite.layoutManager = GridLayoutManager(context,2)
 
     }
 

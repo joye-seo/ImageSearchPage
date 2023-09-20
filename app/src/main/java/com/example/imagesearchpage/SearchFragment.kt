@@ -18,7 +18,7 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: Adapter
+    private lateinit var searchAdapter: SearchAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +37,8 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = Adapter(requireContext(),Data.searchList)
-        binding.rvSearch.adapter = adapter
+        searchAdapter = SearchAdapter(requireContext(),Data.searchList)
+        binding.rvSearch.adapter = searchAdapter
         binding.rvSearch.layoutManager = GridLayoutManager(context,2)
 
         getMovieData("KakaoAK d0c3dd174157f12b0e98736f7eff048a","faker")
@@ -68,7 +68,7 @@ class SearchFragment : Fragment() {
                             )
                         )
                     }
-                    adapter.notifyDataSetChanged()
+                    searchAdapter.notifyDataSetChanged()
                 }
             }
 

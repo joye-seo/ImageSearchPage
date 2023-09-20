@@ -5,13 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.imagesearchpage.RetrofitClient.AUTH_HEADER
 import com.example.imagesearchpage.data.image.ImageResponse
 import com.example.imagesearchpage.databinding.FragmentSearchBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale
 
 class SearchFragment : Fragment() {
 
@@ -23,7 +26,6 @@ class SearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -37,19 +39,52 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchAdapter = SearchAdapter(requireContext(),Data.searchList)
+        Data.searchList.sortedByDescending { it.date }
+        searchAdapter = SearchAdapter(requireContext(), Data.searchList)
         binding.rvSearch.adapter = searchAdapter
-        binding.rvSearch.layoutManager = GridLayoutManager(context,2)
+        binding.rvSearch.layoutManager = GridLayoutManager(context, 2)
 
-        getMovieData("KakaoAK d0c3dd174157f12b0e98736f7eff048a","faker")
+        getImageData(AUTH_HEADER, "faker")
+        initSearchView()
 
     }
 
-    private fun getMovieData(authorization: String, search: String,) {
+    private fun initSearchView() = binding.apply {
+//        searchView.isSubmitButtonEnabled = true
+        searchView.setOnQueryTextListener(object : OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+
+        })
+
+
+    }
+
+    private fun filterList(query: String?) {
+        if (query != null) {
+            val filterList = ArrayList<Search>()
+            for (i in Data.searchList) {
+                if (i.title.lowercase(Locale.ROOT).contains(query)) {
+                    filterList.add(i)
+                }
+            }
+
+
+        }
+    }
+
+    private fun getImageData(authorization: String, search: String) {
 
         val movieInterface = RetrofitClient.initRetrofit().create(SearchInterface::class.java)
 
-        movieInterface.getNowPlaying(authorization, search).enqueue(object :
+        movieInterface.getImage(authorization, search).enqueue(object :
             Callback<ImageResponse> {
 
             override fun onResponse(
@@ -66,11 +101,11 @@ class SearchFragment : Fragment() {
                                 result.documents[i].thumbnail_url,
                                 result.documents[i].display_sitename,
                                 result.documents[i].getFormatterTime(),
-
-                            )
+                                false
+                                )
                         )
                     }
-                    searchAdapter.notifyDataSetChanged()
+                    searchAdapter.notifyItemChanged(Data.searchList.size)
                 }
             }
 

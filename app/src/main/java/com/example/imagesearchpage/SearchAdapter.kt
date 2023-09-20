@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.imagesearchpage.databinding.ItemImgListBinding
 
 class SearchAdapter(val context : Context, var mItem: MutableList<Search>) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+    var isLike = false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchAdapter.ViewHolder {
         val binding = ItemImgListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -29,9 +30,18 @@ class SearchAdapter(val context : Context, var mItem: MutableList<Search>) : Rec
             binding.tvName.text = item.title
             binding.tvDate.text = item.date
 
-            itemView.setOnClickListener {
-                Data.favoriteList.add(item)
-                binding.ivStar.setImageResource(R.drawable.ic_star_on)
+            itemView.setOnClickListener{
+                if (isLike==item.isLike){
+                    binding.ivStar.setImageResource(R.drawable.ic_star_on)
+                    Data.favoriteList.add(item)
+                    item.isLike = true
+                }else{
+                    binding.ivStar.setImageResource(R.drawable.ic_star_off)
+                    Data.favoriteList.removeAt(adapterPosition)
+                    item.isLike = false
+                }
+
+
             }
         }
     }

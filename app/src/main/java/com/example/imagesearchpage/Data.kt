@@ -15,4 +15,6 @@ data class Search(
     val image : String?,
     val title : String,
     val date : String,
-)
+    var isLike :Boolean
+){
+}

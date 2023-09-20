@@ -7,6 +7,8 @@ object RetrofitClient {
 
     var mRetrofit: Retrofit? = null
     private const val SEARCH_URL = "https://dapi.kakao.com/v2/"
+    const val AUTH_HEADER = "KakaoAK d0c3dd174157f12b0e98736f7eff048a"
+
 
     fun initRetrofit(): Retrofit {
         if (mRetrofit == null) {

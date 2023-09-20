@@ -27,9 +27,11 @@ class SearchAdapter(val context : Context, var mItem: MutableList<Search>) : Rec
                 .into(binding.ivProfile)
             binding.tvType.text = item.type
             binding.tvName.text = item.title
+            binding.tvDate.text = item.date
 
             itemView.setOnClickListener {
                 Data.favoriteList.add(item)
+                binding.ivStar.setImageResource(R.drawable.ic_star_on)
             }
         }
     }

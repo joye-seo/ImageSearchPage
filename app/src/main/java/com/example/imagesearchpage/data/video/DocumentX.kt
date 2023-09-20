@@ -1,4 +1,4 @@
-package com.example.imagesearchpage.data.image
+package com.example.imagesearchpage.data.video
 
 data class DocumentX(
     val author: String,

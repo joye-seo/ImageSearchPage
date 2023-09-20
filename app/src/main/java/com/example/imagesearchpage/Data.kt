@@ -13,5 +13,6 @@ object Data {
 data class Search(
     val type : String,
     val image : String?,
-    val title : String
+    val title : String,
+    val date : String,
 )

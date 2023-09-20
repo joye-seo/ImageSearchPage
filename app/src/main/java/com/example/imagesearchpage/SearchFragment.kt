@@ -59,12 +59,14 @@ class SearchFragment : Fragment() {
                 if (response.isSuccessful) {
 
                     val result = response.body() as ImageResponse
-                    for (i in 0..30) {
+                    for (i in 0..10) {
                         Data.searchList.add(
                             Search(
-                                result.documents[i].display_sitename,
+                                "[image]",
                                 result.documents[i].thumbnail_url,
-                                result.documents[i].datetime,
+                                result.documents[i].display_sitename,
+                                result.documents[i].getFormatterTime(),
+
                             )
                         )
                     }

@@ -1,4 +1,4 @@
-package com.example.imagesearchpage.data.video
+package com.example.imagesearchpage.data.image
 
 data class Meta(
     val is_end: Boolean,

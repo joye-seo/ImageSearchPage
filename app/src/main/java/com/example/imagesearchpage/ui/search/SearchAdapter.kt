@@ -32,6 +32,7 @@ class SearchAdapter(val context : Context, var mItem: MutableList<Search>) : Rec
             binding.tvType.text = item.type
             binding.tvName.text = item.title
             binding.tvDate.text = item.date
+            binding.ivStar.setImageResource(if (item.isLike) R.drawable.ic_star_on else R.drawable.ic_star_off)
 
             itemView.setOnClickListener{
                 if (isLike==item.isLike){
@@ -43,6 +44,8 @@ class SearchAdapter(val context : Context, var mItem: MutableList<Search>) : Rec
                     Data.favoriteList.removeAt(adapterPosition)
                     item.isLike = false
                 }
+
+                notifyDataSetChanged()
             }
         }
     }

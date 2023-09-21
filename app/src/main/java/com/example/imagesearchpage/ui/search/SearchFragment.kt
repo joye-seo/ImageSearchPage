@@ -31,6 +31,7 @@ class SearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -39,12 +40,12 @@ class SearchFragment : Fragment() {
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Data.searchList.sortedByDescending { it.date }
         searchAdapter = SearchAdapter(requireContext(), Data.searchList)
         binding.rvSearch.adapter = searchAdapter
         binding.rvSearch.layoutManager = GridLayoutManager(context, 2)

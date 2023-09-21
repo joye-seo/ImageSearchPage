@@ -1,4 +1,4 @@
-package com.example.imagesearchpage
+package com.example.imagesearchpage.ui.search
 
 import android.os.Bundle
 import android.util.Log
@@ -9,12 +9,13 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imagesearchpage.RetrofitClient
 import com.example.imagesearchpage.RetrofitClient.AUTH_HEADER
+import com.example.imagesearchpage.SearchInterface
 import com.example.imagesearchpage.data.Data
 import com.example.imagesearchpage.data.Search
 import com.example.imagesearchpage.data.image.ImageResponse
 import com.example.imagesearchpage.databinding.FragmentSearchBinding
-import com.example.imagesearchpage.ui.search.SearchAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,7 +28,6 @@ class SearchFragment : Fragment() {
     private var isLoading = false
     private var currentPage = 1
     private val ITEMS_PER_PAGE = 10
-    private val TITLE = "페이커"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,8 +92,8 @@ class SearchFragment : Fragment() {
             isLoading = true
             // 다음 페이지 데이터 로드
             currentPage++
-            getImageData(AUTH_HEADER, TITLE, currentPage + 1)
         }
+        searchAdapter.notifyDataSetChanged()
     }
 
     private fun getImageData(authorization: String, search: String, page: Int) {

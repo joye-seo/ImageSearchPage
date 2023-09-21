@@ -13,7 +13,8 @@ interface SearchInterface {
     @GET("search/image")
     fun getImage(
         @Header("Authorization") authorization: String,
-        @Query("query") search: String
+        @Query("query") search: String,
+        @Query("page") page: Int
     ): Call<ImageResponse>
 
     @GET("/vclip")

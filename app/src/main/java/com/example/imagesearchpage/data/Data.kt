@@ -1,4 +1,4 @@
-package com.example.imagesearchpage
+package com.example.imagesearchpage.data
 
 object Data {
     val searchList = mutableListOf<Search>(

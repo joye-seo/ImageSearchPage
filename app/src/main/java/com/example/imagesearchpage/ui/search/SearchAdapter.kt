@@ -1,15 +1,18 @@
-package com.example.imagesearchpage
+package com.example.imagesearchpage.ui.search
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.imagesearchpage.R
+import com.example.imagesearchpage.data.Data
+import com.example.imagesearchpage.data.Search
 import com.example.imagesearchpage.databinding.ItemImgListBinding
 
 class SearchAdapter(val context : Context, var mItem: MutableList<Search>) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
     var isLike = false
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemImgListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
@@ -40,8 +43,6 @@ class SearchAdapter(val context : Context, var mItem: MutableList<Search>) : Rec
                     Data.favoriteList.removeAt(adapterPosition)
                     item.isLike = false
                 }
-
-
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.example.imagesearchpage
+package com.example.imagesearchpage.ui.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.imagesearchpage.data.Data
 import com.example.imagesearchpage.databinding.FragmentFavoriteBinding
+import com.example.imagesearchpage.ui.search.SearchAdapter
 
 class FavoriteFragment : Fragment() {
 
@@ -31,7 +33,7 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchAdapter = SearchAdapter(requireContext(),Data.favoriteList)
+        searchAdapter = SearchAdapter(requireContext(), Data.favoriteList)
         binding.rvFavorite.adapter = searchAdapter
         binding.rvFavorite.layoutManager = GridLayoutManager(context,2)
 

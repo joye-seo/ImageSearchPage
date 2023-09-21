@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,8 +51,6 @@ class SearchFragment : Fragment() {
         binding.rvSearch.adapter = searchAdapter
         binding.rvSearch.layoutManager = GridLayoutManager(context, 2)
 
-        getImageData(AUTH_HEADER, TITLE, currentPage)
-
         binding.rvSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -68,6 +67,24 @@ class SearchFragment : Fragment() {
         })
 
 
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (!newText.isNullOrEmpty()) {
+                    binding.rvSearch.visibility = View.VISIBLE
+                    binding.rootLytSearchOn.visibility = View.GONE
+                    getImageData(AUTH_HEADER, newText!!, currentPage)
+                } else {
+                    binding.rvSearch.visibility = View.GONE
+                    binding.rootLytSearchOn.visibility = View.VISIBLE
+                }
+                return true
+            }
+        })
     }
 
     private fun loadNextPageData() {

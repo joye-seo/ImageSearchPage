@@ -15,6 +15,7 @@ import com.example.imagesearchpage.SearchInterface
 import com.example.imagesearchpage.data.Data
 import com.example.imagesearchpage.data.Search
 import com.example.imagesearchpage.data.image.ImageResponse
+import com.example.imagesearchpage.data.video.VideoResponse
 import com.example.imagesearchpage.databinding.FragmentSearchBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -137,6 +138,47 @@ class SearchFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ImageResponse>, t: Throwable) {
+                Log.d("teddddddst", t.message ?: "통신오류")
+            }
+        })
+
+        imageInterface.getVideo(authorization, search, page).enqueue(object :
+            Callback<VideoResponse> {
+
+            override fun onResponse(
+                call: Call<VideoResponse>,
+                response: Response<VideoResponse>,
+            ) {
+                if (response.isSuccessful) {
+
+                    val result = response.body() as VideoResponse
+                    val startIndex = (page - 1) * ITEMS_PER_PAGE
+
+                    for (i in startIndex until startIndex + ITEMS_PER_PAGE) {
+                        if (i >= result.documents.size) {
+                            break
+                        }
+                        Data.searchList.add(
+                            Search(
+                                "[video]",
+                                result.documents[i].thumbnail,
+                                result.documents[i].title,
+                                result.documents[i].datetime,
+                                false
+                            )
+                        )
+                        Data.searchList.sortByDescending { it.date }
+
+                    }
+                    searchAdapter.notifyDataSetChanged()
+
+                    // 현재 페이지 업데이트
+                    currentPage = page
+                    isLoading = false
+                }
+            }
+
+            override fun onFailure(call: Call<VideoResponse>, t: Throwable) {
                 Log.d("teddddddst", t.message ?: "통신오류")
             }
         })

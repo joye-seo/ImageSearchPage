@@ -12,7 +12,9 @@ import com.example.imagesearchpage.databinding.ItemImgListBinding
 
 class SearchAdapter(val context : Context, var mItem: MutableList<Search>) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
     var isLike = false
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+
+    : ViewHolder {
         val binding = ItemImgListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }

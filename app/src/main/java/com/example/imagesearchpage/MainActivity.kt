@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.imagesearchpage.databinding.ActivityMainBinding
 import com.example.imagesearchpage.ui.favorite.FavoriteFragment
+import com.example.imagesearchpage.ui.search.SearchFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

@@ -19,9 +19,8 @@ interface SearchInterface {
 
     @GET("/vclip")
     fun getVideo(
-        @Path("movie_id") movie_id: Long,
-        @Query("api_key") api_key: String,
-        @Query("language") language: String,
-        @Query("append_to_response") append_to_response: String,
+        @Header("Authorization") authorization: String,
+        @Query("query") search: String,
+        @Query("page") page: Int
     ): Call<VideoResponse>
 }
